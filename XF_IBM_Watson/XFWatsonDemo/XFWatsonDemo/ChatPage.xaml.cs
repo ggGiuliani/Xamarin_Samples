@@ -1,5 +1,5 @@
-﻿using IBM.WatsonDeveloperCloud.Conversation.v1;
-using IBM.WatsonDeveloperCloud.Conversation.v1.Model;
+﻿using IBM.WatsonDeveloperCloud.Assistant.v1;
+using IBM.WatsonDeveloperCloud.Assistant.v1.Model;
 using IBM.WatsonDeveloperCloud.Util;
 using Newtonsoft.Json;
 using System;

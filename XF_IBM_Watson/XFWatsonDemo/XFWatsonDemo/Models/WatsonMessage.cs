@@ -88,7 +88,7 @@ namespace XFWatsonDemo.Models
         public double Confidence { get; set; }
     }
 
-    public partial class Output
+    public  class Output
     {
         [JsonProperty("generic")]
         public Generic[] Generic { get; set; }
@@ -103,7 +103,7 @@ namespace XFWatsonDemo.Models
         public object[] LogMessages { get; set; }
     }
 
-    public partial class Generic
+    public  class Generic
     {
         [JsonProperty("source", NullValueHandling = NullValueHandling.Ignore)]
         public Uri Source { get; set; }

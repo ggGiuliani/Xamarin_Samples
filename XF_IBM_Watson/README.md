@@ -1,8 +1,6 @@
 # Serverless Chatbot
 Xamarin forms IBM Watson conversation(Chatbot) project, which runs on Android, iOS and UWP
 
-![Screenshot](https://github.com/dev-aritra/XFWatsonDemoProj/blob/master/pic/Screenshot%20(19).png)
-
 ## How to build
 Read the complete guide here<br/>
 https://medium.com/@dev.aritradas/https-medium-com-dev-aritradas-ibm-watson-and-xamarin-forms-7013086e0b5c
@@ -22,3 +20,5 @@ https://medium.com/@dev.aritradas/https-medium-com-dev-aritradas-ibm-watson-and-
 ## Author
 
 * **Aritra Das** - [twitter](https://twitter.com/aritra__das)
+
+* Modified by **Giacomo Giuliani** 

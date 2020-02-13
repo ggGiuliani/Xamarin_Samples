@@ -49,11 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="IBM.WatsonDeveloperCloud.Conversation.v1">
-      <Version>2.7.0</Version>
+    <PackageReference Include="IBM.Cloud.SDK.Core">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="IBM.Watson.Assistant.v1">
+      <Version>4.2.1</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
@@ -109,4 +112,9 @@
     <AndroidResource Include="Resources\drawable\bot.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadXFormsNugetUpgradeInfoBarXFWatsonDemoAndroidHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

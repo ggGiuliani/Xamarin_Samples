@@ -1,5 +1,8 @@
-﻿using IBM.WatsonDeveloperCloud.Conversation.v1;
-using IBM.WatsonDeveloperCloud.Conversation.v1.Model;
+﻿//using IBM.WatsonDeveloperCloud.Conversation.v1;
+//using IBM.WatsonDeveloperCloud.Conversation.v1.Model;
+using IBM.Watson.Assistant.v1;
+using IBM.Watson.Assistant.v1.Model;
+using IBM.Cloud.SDK.Core.Authentication.Iam;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,12 +13,14 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XFWatsonDemo.Models;
+using Newtonsoft.Json.Converters;
+using System.Globalization;
 
 namespace XFWatsonDemo
 {
     public class ChatBotViewModel : BindableObject
     {
-        private ConversationService _conversation;
+        private AssistantService _conversation;
         private string _outGoingText;
         public ObservableCollection<ChatMessage> Messages { get; }
         private dynamic _context;
@@ -31,8 +36,11 @@ namespace XFWatsonDemo
 
         private void ConnectToWatson()
         {
-            _conversation = new ConversationService("Username", "password", "2018-09-10");
-            _conversation.SetEndpoint("gateway");
+            IamAuthenticator authenticator = new IamAuthenticator(
+            apikey: "{apiKey}");
+            _conversation = new AssistantService("{versionDate}", authenticator);
+            _conversation.SetServiceUrl("[serviceUrl}");
+
         }
 
         public string OutGoingText
@@ -62,37 +70,35 @@ namespace XFWatsonDemo
                 Messages.Add(new ChatMessage { Text = OutGoingText, IsIncoming = false, MessageDateTime = DateTime.Now });
                 string temp = OutGoingText;
                 OutGoingText = string.Empty;
-                MessageRequest mr = new MessageRequest()
-                {
-                    Input = new InputData()
-                    {
-                        Text = temp
-                    },
-                
-                    Context =_context
-                };
-               
-                await Task.Run(() => {
-                    var res = _conversation.Message("watson workspace id", mr);
-                    _context = res.Context;
 
-                    OnWatsonMessagerecieved(JsonConvert.SerializeObject(res, Formatting.Indented));
+                await Task.Run(() => {
+                    var result = _conversation.Message(
+                        workspaceId: "{workspaceId}",
+                        input: new MessageInput()
+                        {
+                            Text = temp
+                        }
+                    );
+                    //var res = _conversation.Message("watson workspace id", mr);
+                    _context = result.Response;
+
+                    OnWatsonMessagerecieved(JsonConvert.SerializeObject(result.Result.Output, Formatting.Indented));
                 });
             }
 
         }
-
-      
-       
-
-
 
         private void OnWatsonMessagerecieved(string data)
         {
 
             Device.BeginInvokeOnMainThread(() =>
             {
-                WatsonMessage message = JsonConvert.DeserializeObject<WatsonMessage>(data);
+                //string dataJson = JsonConvert.SerializeObject(data);
+                Output message = JsonConvert.DeserializeObject<Output>(data);
+
+                //WatsonMessage message = new WatsonMessage.FromJson(data);
+                //Message
+                //MessageResponse message = JsonConvert.DeserializeObject<MessageResponse>(data);
 
                 var listItem = new ChatMessage
                 {
@@ -102,10 +108,9 @@ namespace XFWatsonDemo
 
                 };
                 
-
-                if(message.Output.Generic!=null)
+                if(message.Generic!=null)
                 {
-                    foreach(var item in message.Output.Generic)
+                    foreach(var item in message.Generic)
                     {
                         if (item.ResponseType.Equals("image"))
                         {
