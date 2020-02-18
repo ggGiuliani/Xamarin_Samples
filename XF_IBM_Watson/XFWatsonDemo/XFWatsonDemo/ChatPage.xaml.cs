@@ -1,6 +1,5 @@
-﻿using IBM.WatsonDeveloperCloud.Assistant.v1;
-using IBM.WatsonDeveloperCloud.Assistant.v1.Model;
-using IBM.WatsonDeveloperCloud.Util;
+﻿using IBM.Watson.Assistant.v1;
+using IBM.Watson.Assistant.v1.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
